@@ -1,6 +1,6 @@
 #include "battle.h"
 #include "moves.h"
-#include "locale.h"
+#include "ub-locale.h"
 #include "strmap.h"
 #include <stdlib.h>
 #include <stdio.h>

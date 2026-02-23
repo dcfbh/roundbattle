@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "locale.h"
+#include "ub-locale.h"
 #include "moves.h"
 #include "battle.h"
 #include "item.h"

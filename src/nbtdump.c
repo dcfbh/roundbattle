@@ -5,7 +5,17 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "readall.c"
+#include "expr.h"
+static inline void *readall(intptr_t fd,ssize_t *len){
+	char *save;
+	ssize_t r=expr_file_readfd((void *)read,fd,1,&save);
+	if(r<0)
+		return NULL;
+	if(len)
+		*len=r;
+	save[r]=0;
+	return save;
+}
 int dump(char *file){
 	int fd;
 	struct nbt_node *np;

@@ -4,16 +4,16 @@
 #include "utils.h"
 #include "player_data.h"
 #include "menu.h"
-//#include "locale.h"
+#include <locale.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <ncurses.h>
 #include <assert.h>
-#include <locale.h>
+#include "ub-locale.h"
 #include <unistd.h>
 
-int main(){
+int main(void){
 	struct player_data p1;
 	setlocale(LC_ALL,"");
 	assert(!pdata_load(&p1));

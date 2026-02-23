@@ -9,15 +9,25 @@
 #include <errno.h>
 #include <assert.h>
 #include <fcntl.h>
-#include "readall.c"
+#include "expr.h"
 char *data_file="data.nbt";
+static inline void *readall(intptr_t fd,ssize_t *len){
+	char *save;
+	ssize_t r=expr_file_readfd((void *)read,fd,1,&save);
+	if(r<0)
+		return NULL;
+	if(len)
+		*len=r;
+	save[r]=0;
+	return save;
+}
 static struct nbt_node *data_read(void){
 	int fd=open(data_file,O_RDONLY);
 	void *buf;
 	ssize_t sz;
 	struct nbt_node *r;
 	errno=0;
-	if(!fd)
+	if(fd<0)
 		goto fail;
 	buf=readall(fd,&sz);
 	close(fd);

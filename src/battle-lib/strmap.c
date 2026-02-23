@@ -1,4 +1,5 @@
 #include "strmap.h"
+#include "expr.h"
 #include <string.h>
 #include <err.h>
 #include <stdlib.h>
@@ -50,7 +51,7 @@ const char *strmap_find(const struct strmap *map,const char *from,size_t fl){
 	c=expr_symset_search(map->esp,from,fl);
 	if(!c)
 		return NULL;
-	return expr_symset_hot(c);
+	return expr_symbol_hot(c);
 }
 void strmap_free(struct strmap *map){
 	if(map->esp){

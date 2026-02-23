@@ -11,13 +11,17 @@
 #include <assert.h>
 #include <math.h>
 #include <fcntl.h>
-#include "readall.c"
-#ifndef _SSIZE_T_DEFINED_
-#define _SSIZE_T_DEFINED_
-typedef ptrdiff_t ssize_t;
-#else
-_Static_assert(sizeof(ssize_t)==sizeof(ptrdiff_t),"ssize_t and ptrdiff_t has different size");
-#endif
+#include "expr.h"
+static inline void *readall(intptr_t fd,ssize_t *len){
+	char *save;
+	ssize_t r=expr_file_readfd((void *)read,fd,1,&save);
+	if(r<0)
+		return NULL;
+	if(len)
+		*len=r;
+	save[r]=0;
+	return save;
+}
 void scr(void){
 	assert(initscr()&&has_colors());
 	noecho();

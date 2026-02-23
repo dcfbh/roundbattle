@@ -8,13 +8,23 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <assert.h>
-#include "readall.c"
+#include "expr.h"
 static const char *types_string[21]={"void_type","grass","fire","water","steel","light","fighting","wind","poison","rock","electric","ghost","ice","bug","machine","soil","dragon","normal","devine_grass","alkali_fire","devine_water"};
 static struct strmap *loc=NULL;
 int loc_disable=0;
 static void __attribute__((destructor)) locale_end(void){
 	if(loc)
 		strmap_free(loc);
+}
+static inline void *readall(intptr_t fd,ssize_t *len){
+	char *save;
+	ssize_t r=expr_file_readfd((void *)read,fd,1,&save);
+	if(r<0)
+		return NULL;
+	if(len)
+		*len=r;
+	save[r]=0;
+	return save;
 }
 static void load_locale(void){
 	ssize_t r;

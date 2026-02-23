@@ -6,11 +6,11 @@ rdbt: main.c battle.c battle.h battle-core.o term.c strmap.o locale.o species.c 
 nbtdump: nbtdump.c nbt.o
 	$(CC) $(CFLAG) nbtdump.c nbt.o -o nbtdump
 nbtedit: nbtedit.c nbt.o expr.h expr.o
-	$(CC) $(CFLAG) nbtedit.c nbt.o expr.o -lm -lncurses -o nbtedit
+	$(CC) $(CFLAG) nbtedit.c nbt.o expr.o -lm -lncursesw -o nbtedit
 list: list.c moves.o battle-core.o locale.o strmap.o species.c info.c species.h info.h
 	$(CC) $(CFLAG) list.c moves.o battle-core.o locale.o strmap.o species.c info.c -lm expr.o -o list
-expr.o: expr.c expr.h
-	$(CC) $(CFLAG) expr.c -c -o expr.o
+expr.o: expr_core.c expr.h
+	$(CC) $(CFLAG) expr_core.c -c -o expr.o
 moves.o: moves.c moves.h
 	$(CC) $(CFLAG) moves.c -c -o moves.o
 strmap.o: strmap.c strmap.h

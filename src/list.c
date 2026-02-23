@@ -1,6 +1,6 @@
 #include "moves.h"
 #include "species.h"
-#include "locale.h"
+#include "ub-locale.h"
 #include "utils.h"
 #include <stdio.h>
 #include <stddef.h>
